@@ -9,14 +9,14 @@ command.
 
 import click
 
-from subcommands.translation import translation
+from subcommands.translation import fetch_image
 
 @click.group()
 def cli():
     pass
 
 
-cli.add_command(translation)
+cli.add_command(fetch_image)
 
 
 if __name__ == "__main__":
