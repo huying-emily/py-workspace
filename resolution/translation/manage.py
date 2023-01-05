@@ -14,7 +14,7 @@ from subcommands.translation import translation
 @click.group()
 def cli():
     pass
-
+sql
 cli.add_command(translation)
 
 
