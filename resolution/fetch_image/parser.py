@@ -134,21 +134,3 @@ class BaseImageParser(BaseParser):
         for page in paginator.paginate(**kwargs).result_key_iters():
             for result in page:
                 yield result
-
-
-class QuadrantImageParser(BaseImageParser):
-    S3_IMAGE_BUCKET = "rea-app-assets"
-    S3_IMAGE_FOLDER = "commissioned_images/quadrant-images"
-    TARGET_TABLE = "raw_singapore.sg_quadrant_images"
-
-
-class SGExternalProjectImageParser(BaseImageParser):
-    S3_IMAGE_BUCKET = "rea-app-assets"
-    S3_IMAGE_FOLDER = "external_project_image/SGALL"
-    TARGET_TABLE = "raw_singapore.sg_external_project_image"
-
-
-class HKExternalProjectImageParser(BaseImageParser):
-    S3_IMAGE_BUCKET = "rea-app-assets"
-    S3_IMAGE_FOLDER = "external_project_image/HKALL"
-    TARGET_TABLE = "raw_hongkong.hk_external_project_image"

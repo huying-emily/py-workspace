@@ -182,80 +182,6 @@ class BaseImageFetcher(BaseMapper):
         self.map()
 
 
-class SGExternalProjectImageFetcher(BaseImageFetcher):
-    is_direct_import = True
-    src_schema = "reference"
-    star_entity_name = "sg_external_project_image"
-    data_source = "sg_external_project_image"
-    metadata = "address_street_num || ' ' || address_street || ',' || postal_code"
-    master_fc_name = "fc_project_listing_image"
-    image_type_column = "image_type"
-
-
-class HKExternalProjectImageFetcher(BaseImageFetcher):
-    is_direct_import = True
-    src_schema = "reference"
-    star_entity_name = "hk_external_project_image"
-    data_source = "hk_external_project_image"
-    metadata = "full_address_street || ',' || project_name || ',' || city_subarea || ',' || city_area || ',' || city"
-    master_fc_name = "fc_project_listing_image"
-    image_type_column = "image_type"
-
-
-class QuadrantImageFetcher(BaseImageFetcher):
-    is_direct_import = True
-    src_schema = "reference"
-    star_entity_name = "sg_quadrant_images"
-    data_source = "sg_quadrant_images"
-    metadata = "postal_code || ',' || image_location"
-    master_fc_name = "fc_project_listing_image"
-    image_type_column = "'GENERAL'"  # no column available, so provide a string value
-
-
-class CosProjectImageFetcher(BaseImageFetcher):
-    src_schema = "reference"
-    star_entity_name = "sg_cos_project_image"
-    data_source = "sg_cos_project_image"
-    metadata = "project_name"
-    master_fc_name = "fc_project_listing_image"
-    url_column = "image_url"
-    S3_IMAGE_FOLDER = "project_image_v2"
-
-
-class CondoReviewProjectImageFetcher(BaseImageFetcher):
-    src_schema = "reference"
-    star_entity_name = "sg_condoreview_project_image"
-    data_source = "sg_condoreview_project_image"
-    metadata = "project_name"
-    master_fc_name = "fc_project_listing_image"
-    url_column = "image_url"
-    S3_IMAGE_FOLDER = "project_image_v2"
-
-
-class ProjectImageFetcher(BaseImageFetcher):
-    src_schema = "star"
-    star_entity_name = "project_listing_image"
-    master_fc_name = "fc_project_listing_image"
-    url_column = "original_link"
-    S3_IMAGE_FOLDER = "project_image_v2"
-
-
-class RentalImageFetcher(BaseImageFetcher):
-    src_schema = "star"
-    star_entity_name = "rental_listing_image"
-    master_fc_name = "fc_rental_listing_image"
-    url_column = "original_link"
-    S3_IMAGE_FOLDER = "rental_image"
-
-
-class SaleImageFetcher(BaseImageFetcher):
-    src_schema = "star"
-    star_entity_name = "sale_listing_image"
-    master_fc_name = "fc_sale_listing_image"
-    url_column = "original_link"
-    S3_IMAGE_FOLDER = "sale_image"
-
-
 class SGNewLaunchImageFetcher(BaseImageFetcher):
     src_schema = "reference"
     star_entity_name = "sg_new_launch_image"
@@ -352,24 +278,3 @@ class SGNewLaunchImageFetcher(BaseImageFetcher):
         self.dm.pg_hook.execute_raw_query(f"DROP TABLE {temp_table} CASCADE;")
 
         self.log.warning("Image fetching process completed. ")
-
-
-class MYNewLaunchImageFetcher(SGNewLaunchImageFetcher):
-    src_schema = "reference"
-    star_entity_name = "my_new_launch_image"
-    data_source = "my_new_launch_image"
-    metadata = "project_name"
-    # master_fc_name = "fc_project_listing_image"
-    url_column = "image_url"
-    S3_IMAGE_FOLDER = "project_image_v2"
-
-
-class IDNewLaunchImageFetcher(SGNewLaunchImageFetcher):
-    src_schema = "reference"
-    star_entity_name = "id_new_launch_image"
-    data_source = "id_new_launch_image"
-    metadata = "project_name"
-    # master_fc_name = "fc_project_listing_image"
-    url_column = "image_url"
-    S3_IMAGE_FOLDER = "project_image_v2"
-
