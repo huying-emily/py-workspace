@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "resolution"
+version = "0.1.1"
+description = "A project to handle the resolution of data. "
+authors = [""]
+packages = [
+    { include = "src" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.9"
+click = "^7.1.2"
+tqdm = "^4.48.2"
+numpy = "1.19"
+fastapi = "^0.61.1"
+uvicorn = "^0.11.8"
+pandas = "1.1"
+textpack = "^0.0.7"
+scipy = "1.5.2"
+geopandas = "0.9"
+pygeos = "^0.8"
+Shapely = "^1.7.1"
+fastparquet = "^0.4.1"
+dask = {extras = ["dataframe"], version = "^2.30.0"}
+cloudpickle = "^1.6.0"
+pyarrow = "^2.0.0"
+haversine = "^2.3.0"
+fake-headers = "^1.0.2"
+pydantic = "1.7.3"
+numba = "0.52.0"
+Cython = "0.29.21"
+pandasql = "0.7.3"
+nltk = "3.6.2"
+pandarallel = "^1.5.2"
+xgboost = "1.4.2"
+osmnx = "1.1.1"
+scikit-learn = "0.24.2"
+webdriver-manager = '3.5.1'
+selenium = "4.0.0"
+markupsafe = "2.0.1"
+chinese-converter = "1.0.2"
+
+[tool.poetry.dev-dependencies]
+bumpversion = "0.6.0"
+pre-commit = "2.3.0"
+pytest = "^6.0.2"
+awscli = "^1.21.7" # awscli = "^1.18.146"
+
+#rea-python = {path = "../rea-python-common", develop = true}
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

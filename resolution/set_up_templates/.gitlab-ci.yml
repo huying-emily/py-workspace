@@ -1,0 +1,31 @@
+default:
+  image: docker:19.03.8
+
+services:
+  - docker:19.03.8-dind
+
+variables:
+  PROJECT_VERSION: "v0.18.85"
+  IMAGE_NAME: "${AWS_REGISTRY_URL}/${CI_PROJECT_NAME}:${PROJECT_VERSION}"
+
+before_script:
+  - apk -v --no-cache --update add python py-pip
+  - pip --no-cache-dir install --upgrade awscli
+
+build image and deploy in PROD:
+  stage: deploy
+  environment: production
+  script:
+    - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+    - echo "Start building ${IMAGE_NAME}"
+    - docker build -t $IMAGE_NAME .
+    - docker push $IMAGE_NAME
+    - aws ecs register-task-definition --cli-input-json file://./deploy/app.json
+    - aws ecs register-task-definition --cli-input-json file://./deploy/service.json
+    - aws ecs register-task-definition --cli-input-json file://./deploy/app-upsize.json
+    - aws ecs register-task-definition --cli-input-json file://./deploy/app-super-upsize.json
+
+    # deploy resolution service
+    - aws ecs update-service --service ${CI_PROJECT_NAME}-service --cluster ${ECS_PROD_CLUSTER} --task-definition ${CI_PROJECT_NAME}-service
+  only:
+    - production
